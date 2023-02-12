@@ -6,6 +6,10 @@ const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const app = express();
 const { resolve } = require("path");
 
+const cors = require("cors")
+
+app.use(cors());
+
 
 // Use JSON parser for all non-webhook routes
 app.use((req, res, next) => {
@@ -82,7 +86,7 @@ app.post('/webhook', bodyParser.raw({type: 'application/json'}), async (req, res
 
   if (eventType === "payment_intent.succeeded") {
     // Fulfill any orders, e-mail receipts, etc
-    
+
     console.log("💰 Payment received!");
   }
 
